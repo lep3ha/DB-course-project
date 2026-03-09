@@ -1,4 +1,4 @@
 SELECT DISTINCT city 
-FROM suppliers 
+FROM supplier 
 WHERE city IS NOT NULL AND city != ''
 ORDER BY city;

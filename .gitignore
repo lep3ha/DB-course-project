@@ -208,3 +208,6 @@ __marimo__/
 
 .extra/
 .DS_Store
+.github/
+.vscode/
+.idea/

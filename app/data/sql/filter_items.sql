@@ -1,24 +1,24 @@
 SELECT 
-    b.id,
-    b.blank_code,
-    b.name,
-    b.material,
-    b.weight,
-    COALESCE(s.price, 0) as price,
-    COALESCE(s.quantity, 0) as quantity
-FROM blanks b
-LEFT JOIN stock s ON b.id = s.blank_id
-WHERE (b.material = '{{ material }}' OR '{{ material }}' = '')
-  AND (COALESCE(s.price, 0) >= {{ min_price }} OR {{ min_price }} = 0)
-  AND (COALESCE(s.price, 0) <= {{ max_price }} OR {{ max_price }} = 0)
+    w.id,
+    w.article_number as blank_code,
+    w.name,
+    w.material,
+    w.weight,
+    wh.purchase_price as price,
+    wh.quantity as quantity
+FROM workpiece w
+JOIN warehouse wh ON w.id = wh.workpiece_id
+WHERE (w.material = '{{ material }}' OR '{{ material }}' = '')
+  AND (wh.purchase_price >= {{ min_price }}::numeric OR {{ min_price }} = 0 OR wh.purchase_price IS NULL)
+  AND (wh.purchase_price <= {{ max_price }}::numeric OR {{ max_price }} = 0 OR wh.purchase_price IS NULL)
 {% if sort_by == 'name_asc' %}
-ORDER BY b.name ASC
+ORDER BY w.name ASC
 {% elif sort_by == 'name_desc' %}
-ORDER BY b.name DESC
+ORDER BY w.name DESC
 {% elif sort_by == 'price_asc' %}
-ORDER BY COALESCE(s.price, 0) ASC
+ORDER BY wh.purchase_price ASC
 {% elif sort_by == 'price_desc' %}
-ORDER BY COALESCE(s.price, 0) DESC
+ORDER BY wh.purchase_price DESC
 {% else %}
-ORDER BY b.name ASC
+ORDER BY w.name ASC
 {% endif %};

@@ -1,2 +1,2 @@
-SELECT id, username FROM users 
-WHERE username = %s AND password_hash = %s
+SELECT id, username, first_name FROM users 
+WHERE username = %s AND password_hash = %s;
