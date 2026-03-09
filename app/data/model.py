@@ -30,9 +30,9 @@ class FetchModel:
             "blank_code": "Артикул",
             "name": "Название",
             "material": "Материал",
-            "weight": "Вес, кг",
+            "weight": "Вес, кг.",
             "price": "Себестоимость, руб.",
-            "quantity": "В наличии",
+            "quantity": "В наличии, шт.",
         }
         try:
             # Валидация параметров
@@ -40,7 +40,7 @@ class FetchModel:
             
             # Получаем SQL с параметрами
             sql = self.sql_provider.get("filter_items.sql", **validated_params)
-            
+            print(sql)
             with DBContextManager() as db:
                 db.execute(sql)
                 result = db.fetchall()
@@ -155,7 +155,6 @@ class FetchModel:
             validated_params = self._validate_invoice_params(params)
             
             sql = self.sql_provider.get("filter_invoices.sql", **validated_params)
-            
             with DBContextManager() as db:
                 db.execute(sql)
                 result = db.fetchall()

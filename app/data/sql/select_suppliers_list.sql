@@ -1,3 +1,3 @@
-SELECT id, name 
-FROM suppliers 
-ORDER BY name;
+SELECT id, company_name 
+FROM supplier 
+ORDER BY company_name;

@@ -1,18 +1,18 @@
-from flask import Blueprint, render_template, request, flash
+from flask import Blueprint, render_template, request
 from app.data.forms import CatalogFilterForm, SuppliersFilterForm, InvoicesFilterForm
 from app.data.model import FetchModel
-from app.auth.access import login_required
+from app.auth.access import permission_required
 
 data = Blueprint("data", __name__, template_folder="templates")
 fetch_model = FetchModel()
 
 @data.route("/", methods=["GET"])
-@login_required
+@permission_required(["monitoring_viewer"])
 def index():
-    return render_template("monitoring.html", title="Мониторинг данных")
+    return render_template("data/monitoring.html", title="Мониторинг данных")
 
 @data.route("/catalog", methods=["GET", "POST"])
-@login_required
+@permission_required(["catalog_viewer"])
 def catalog():
     form = CatalogFilterForm()
     items = []
@@ -35,13 +35,13 @@ def catalog():
         
         # Получаем товары с фильтрацией
         result = fetch_model.get_products(params)
-        
+        print(result)
         if result['status']:
             items = result['data']
             if items:
                 columns = list(items[0].keys())  # Получаем названия колонок из первого элемента
     
-    return render_template("catalog.html", 
+    return render_template("data/catalog.html", 
                          form=form, 
                          items=items, 
                          columns=columns,
@@ -49,6 +49,7 @@ def catalog():
 
 
 @data.route("/suppliers", methods=["GET", "POST"])
+@permission_required(["suppliers_viewer"])
 def suppliers():
     form = SuppliersFilterForm()    
     suppliers = []
@@ -75,12 +76,13 @@ def suppliers():
             if suppliers:
                 columns = list(suppliers[0].keys()) 
     
-    return render_template('suppliers.html',
+    return render_template('data/suppliers.html',
                          form=form,
                          suppliers=suppliers,
                          columns=columns)
 
 @data.route("/invoices", methods=["GET", "POST"])
+@permission_required(["invoices_viewer"])
 def invoices():
     form = InvoicesFilterForm()
     invoices = []
@@ -108,7 +110,7 @@ def invoices():
             if invoices:
                 columns = list(invoices[0].keys())
     
-    return render_template('invoices.html',
+    return render_template('data/invoices.html',
                          form=form,
                          invoices=invoices,
                          columns=columns)

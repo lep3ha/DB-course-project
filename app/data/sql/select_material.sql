@@ -1,4 +1,4 @@
 SELECT DISTINCT material 
-FROM blanks 
+FROM workpiece 
 WHERE material IS NOT NULL AND material != ''
 ORDER BY material;

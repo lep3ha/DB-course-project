@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "base/base.html" %}
 
 {% block title %}Регистрация{% endblock %}
 
@@ -23,6 +23,28 @@
                         </div>
                         {% if form.username.errors %}
                             <div class="text-danger small mt-1"><i class="bi bi-exclamation-triangle me-1"></i>{{ form.username.errors[0] }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold small">{{ form.first_name.label }}</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light"><i class="bi bi-card-text"></i></span>
+                            {{ form.first_name(class="form-control border-start-0", placeholder="Ваше имя") }}
+                        </div>
+                        {% if form.first_name.errors %}
+                            <div class="text-danger small mt-1"><i class="bi bi-exclamation-triangle me-1"></i>{{ form.first_name.errors[0] }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold small">{{ form.second_name.label }}</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light"><i class="bi bi-card-text"></i></span>
+                            {{ form.second_name(class="form-control border-start-0", placeholder="Ваша фамилия") }}
+                        </div>
+                        {% if form.second_name.errors %}
+                            <div class="text-danger small mt-1"><i class="bi bi-exclamation-triangle me-1"></i>{{ form.second_name.errors[0] }}</div>
                         {% endif %}
                     </div>
                     

@@ -44,13 +44,8 @@
                 {% if session.get('user_id') %}
                     <!-- Для авторизованных -->
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('data.index') }}">
-                            <i class="bi bi-bar-chart me-1"></i>Данные
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <i class="bi bi-file-text me-1"></i>Отчеты
+                        <a class="nav-link" href="{{ url_for('cart.view_cart') }}" title="Корзина">
+                            <i class="bi bi-cart3 me-1"></i>Корзина
                         </a>
                     </li>
                     <li class="nav-item dropdown">
@@ -90,7 +85,7 @@
     {% block content %}{% endblock %}
 
 
-    {% include "toast-notification.html" %}
+    {% include "base/toast-notification.html" %}
 </div>
 
 <footer class="mt-5">

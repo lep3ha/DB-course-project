@@ -1,6 +1,3 @@
-WITH role_sel AS (
-    SELECT id FROM roles WHERE role_name = %s
-)
-INSERT INTO users (username, password_hash, role_id)
-VALUES (%s, %s, (SELECT id FROM role_sel))
+INSERT INTO users (username, first_name, second_name, password_hash)
+VALUES (%s, %s, %s, %s)
 RETURNING id;
