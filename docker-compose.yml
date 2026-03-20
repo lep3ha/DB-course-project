@@ -3,6 +3,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    container_name: blank_supplies_web
     image: blank_supplies_web:latest
     env_file: .env
     ports:
